@@ -1,0 +1,56 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/zadanie2ubi.csproj": {}
+  },
+  "projects": {
+    "/Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/zadanie2ubi.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/zadanie2ubi.csproj",
+        "projectName": "zadanie2ubi",
+        "projectPath": "/Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/zadanie2ubi.csproj",
+        "packagesPath": "/Users/admin/.nuget/packages/",
+        "outputPath": "/Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "configFilePaths": [
+          "/Users/admin/.config/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "monoandroid90"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "monoandroid90": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "monoandroid90": {
+          "dependencies": {
+            "Xamarin.Android.Support.Core.Utils": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
+            },
+            "Xamarin.Android.Support.CustomTabs": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
+            },
+            "Xamarin.Android.Support.Design": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
+            },
+            "Xamarin.Essentials": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            }
+          }
+        }
+      }
+    }
+  }
+}
