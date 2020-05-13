@@ -16,6 +16,7 @@ namespace zadanie2ubi
     [Activity(Label = "SetActivity")]
     public class SetActivity : Activity
     {
+        Backend backend;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -35,6 +36,7 @@ namespace zadanie2ubi
                 var intent = new Intent(this, typeof(MainActivity));
                 StartActivity(intent);
             };
+            backend = Backend.Instance;
         }
     }
 }
