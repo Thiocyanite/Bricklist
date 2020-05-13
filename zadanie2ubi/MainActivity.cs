@@ -28,7 +28,7 @@ namespace zadanie2ubi
             backend = Backend.Instance;
             button1.Click += (sender, e) =>
              {
-                 System.Console.WriteLine(editText1.Text);
+                 backend.AddInventory(int.Parse(editText1.Text));
              };
             Button button2 = FindViewById<Button>(Resource.Id.button2);
             button2.Click += (sender, e) =>

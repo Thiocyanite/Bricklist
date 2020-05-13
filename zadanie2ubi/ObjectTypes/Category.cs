@@ -3,10 +3,10 @@ namespace zadanie2ubi.ObjectTypes
 {
     public class Category
     {
-        private int id { get; set; }
-        private int Code { get; set; }
-        private string Name { get; set; }
-        private string NamePL { get; set; }
+        public int id;
+        public int Code;
+        public string Name;
+        public string NamePL;
         public Category()
         {
         }

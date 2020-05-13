@@ -3,10 +3,10 @@ namespace zadanie2ubi.ObjectTypes
 {
     public class Code
     {
-        private int id { get; set; }
-        private int ItemID { get; set; }
-        private int ColorId { get; set; }
-        private int code { get; set; }
+        public int id;
+        public int ItemID;
+        public int ColorId;
+        public int code;
 
         public Code()
         {
