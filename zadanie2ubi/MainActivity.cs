@@ -1,5 +1,6 @@
 ﻿using System;
 using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
@@ -13,6 +14,8 @@ namespace zadanie2ubi
     public class MainActivity : AppCompatActivity
     {
 
+        Backend backend;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -22,6 +25,19 @@ namespace zadanie2ubi
             EditText editText1 = FindViewById<EditText>(Resource.Id.editText1);
             Button button1 = FindViewById<Button>(Resource.Id.button1);
             ListView listView1 = FindViewById<ListView>(Resource.Id.listView1);
+            backend = Backend.Instance;
+            button1.Click += (sender, e) =>
+             {
+                 System.Console.WriteLine(editText1.Text);
+             };
+            Button button2 = FindViewById<Button>(Resource.Id.button2);
+            button2.Click += (sender, e) =>
+              {
+                  var intent = new Intent(this, typeof(SetActivity));
+                // intent.PutStringArrayListExtra("phone_numbers", _phoneNumbers);
+                StartActivity(intent);
+              };
+
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -47,6 +63,8 @@ namespace zadanie2ubi
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
+        
     }
 }
 

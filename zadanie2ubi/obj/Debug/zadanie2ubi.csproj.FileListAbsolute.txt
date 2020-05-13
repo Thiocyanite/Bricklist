@@ -261,3 +261,7 @@
 /Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/Debug/stamp/_GenerateJavaStubs.stamp
 /Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/Debug/stamp/_GeneratePackageManagerJava.stamp
 /Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/Debug/stamp/_ResolveLibraryProjectImports.stamp
+/Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/Debug/res/layout/set_layout.xml
+/Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/Debug/android/src/crc642fdc9487efee4229/SetActivity.java
+/Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/Debug/android/src/crc64a0e0a82d0db9a07d/ClipboardChangeListener.java
+/Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/Debug/android/src/crc64a0e0a82d0db9a07d/WebAuthenticatorCallbackActivity.java
