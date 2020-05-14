@@ -10,5 +10,13 @@ namespace zadanie2ubi.ObjectTypes
         public Inventory()
         {
         }
+
+        public Inventory(int _id, string _Name, int _Active, int _LastAccessed)
+        {
+            id = _id;
+            Name = _Name;
+            Active = _Active;
+            LastAccessed = _LastAccessed;
+        }
     }
 }

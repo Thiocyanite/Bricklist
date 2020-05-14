@@ -12,5 +12,13 @@ namespace zadanie2ubi.ObjectTypes
         public ItemType()
         {
         }
+
+        public ItemType(int _id, string _Code, string _Name, string _NamePl)
+        {
+            id = _id;
+            Code = _Code;
+            Name = _Name;
+            NamePl = _NamePl;
+        }
     }
 }

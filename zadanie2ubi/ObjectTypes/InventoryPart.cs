@@ -14,5 +14,17 @@ namespace zadanie2ubi.ObjectTypes
         public InventoryPart()
         {
         }
+
+        public InventoryPart(int _id, int _InventoryID, int _TypeID, int _ItemID, int _QuantityInSet,int _ColorID, int _Extra)
+        {
+            id = _id;
+            InventoryID = _InventoryID;
+            TypeID = _TypeID;
+            ItemID = _ItemID;
+            QuantityInSet = _QuantityInSet;
+            QuantityInStore = 0;
+            ColorID = _ColorID;
+            Extra = _Extra;
+        }
     }
 }
