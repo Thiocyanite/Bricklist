@@ -74,6 +74,7 @@
     <Compile Include="ObjectTypes\Part.cs" />
     <Compile Include="ObjectTypes\Inventory.cs" />
     <Compile Include="ObjectTypes\InventoryPart.cs" />
+    <Compile Include="ObjectTypes\BrickInGui.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

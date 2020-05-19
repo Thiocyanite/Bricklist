@@ -13,7 +13,8 @@ namespace zadanie2ubi
     {
         private List<String> BrickSetsNames;
         private SQLiteConnection db;
-
+        public string ChosenSet { get; set; }
+        public List<BrickInGui> Bricks {get;set; }
         private static readonly Lazy<Backend>
         lazy =
         new Lazy<Backend>
@@ -21,36 +22,91 @@ namespace zadanie2ubi
 
         public static Backend Instance { get { return lazy.Value; } }
 
+
         private Backend()
         {
             BrickSetsNames = new List<string>();
             string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal),
         "database.db3");
-            //File.Delete(dbPath);
             if (File.Exists(dbPath))
             {
                 db = new SQLiteConnection(dbPath);
+                
             }
             else
             {
                 db = new SQLiteConnection(dbPath);
                 CreateDB();
+                CreateExampleData();
             }
-
+            ChosenSet = "None";
+            Bricks = new List<BrickInGui>();
         }
 
+        public void GetInventoryParts(int id)
+        {
+            var table = db.Table<InventoryPart>().Where(i => i.InventoryID == id);
+            List<BrickInGui> bricks = new List<BrickInGui>();
+            foreach(InventoryPart part in table)
+            {
+                bricks.Add(new BrickInGui(part));
+            }
+            Bricks = bricks;
+        }
 
+        public List<string> GetBricksStableInfo()
+        {
+            List<string> vs = new List<string>();
+            vs.Add("Typ Id Kolor Ekstra");
+            foreach (var brick in Bricks)
+                vs.Add(brick.StaticValues());
+            return vs;
+        }
+
+        public List<string> GetBricksNums()
+        {
+            List<string> vs = new List<string>();
+            vs.Add("Ile na");
+            foreach (var brick in Bricks)
+                vs.Add(brick.BricksNum());
+            return vs;
+        }
+
+        public List<string> GetSetNames()
+        {
+            List<string> setlist = new List<string>();
+            var table = db.Table<Inventory>();
+            foreach (Inventory inventory in table)
+            {
+                var name = inventory.Id + " " + inventory.Name;
+                setlist.Add(name);
+            }
+            return setlist;
+        }
+
+        public void CreateExampleData()
+        {
+            var inventory = new Inventory(7, "Nazwa", 0, 0);
+            db.Insert(inventory);
+            Random rnd = new Random();
+            InventoryPart part;
+            for (int i=0; i < 10; i++)
+            {
+                part = new InventoryPart(i, 7, i, i, i, 0, 0);
+                db.Insert(part);
+            }
+        }
 
         /// <summary>
         /// This function shall download xml file with Lego set.
         /// To do: check why it doesn't want to download file
         /// </summary>
         /// <param name="id"> Number of set, for example 615</param> 
-        public void AddInventory(int id)
+        public void AddInventory(int id, string name)
         {
             try
             {
-                BrickSetsNames.Add(id.ToString());
+                BrickSetsNames.Add(id.ToString()+" "+name);
                 WebClient client = new WebClient();
                 var source = "http://fcds.cs.put.poznan.pl/MyWeb/BL/" + id.ToString() + ".xml";
                 var destination = Environment.GetFolderPath(Environment.SpecialFolder.Personal)+id.ToString() + ".xml";
@@ -71,7 +127,7 @@ namespace zadanie2ubi
         private void WriteXML(int id)
         {
             var table = db.Table<InventoryPart>();
-            table = table.Where(i => i.InventoryID==id); 
+            table = table.Where(i => i.InventoryID == id);
             table = table.Where(i => i.QuantityInStore < i.QuantityInSet);
             if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "Result.xml"))
             {
@@ -86,7 +142,7 @@ namespace zadanie2ubi
                     {
                         "<ITEM>",
                         "<ITEMTYPE>"+brick.ItemID.ToString()+"</ITEMTYPE>",
-                        "<ITEMID>"+brick.id.ToString()+"</ITEMID>",
+                        "<ITEMID>"+brick.Id.ToString()+"</ITEMID>",
                         "<COLOR>"+brick.ColorID.ToString()+"</COLOR>",
                         "<QTYFILLED>"+(brick.QuantityInSet-brick.QuantityInStore).ToString()+"</QTYFILLD>",
                         "</ITEM>"
@@ -156,14 +212,12 @@ namespace zadanie2ubi
         /// <param name="id"> Number of set </param>
         public void DeleteInventory(int id)
         {
-            InventoryPart inventoryPart;
-            do
-            {
-                inventoryPart = db.Table<InventoryPart>().Where(i => i.InventoryID == id).FirstOrDefault();
-                db.Delete(inventoryPart);
-            } while (inventoryPart != null);
-            Inventory inventory = db.Table<Inventory>().Where(i => i.id == id).First();
+            var tab = db.Table<InventoryPart>().Where(i => i.InventoryID == id);
+            foreach (InventoryPart part in tab)
+                db.Delete(part);
+            Inventory inventory = db.Table<Inventory>().Where(i => i.Id == id).First();
             db.Delete(inventory);
+            ChosenSet = "None";
         }
 
 

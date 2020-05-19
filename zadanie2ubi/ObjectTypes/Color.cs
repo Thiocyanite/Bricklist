@@ -1,12 +1,14 @@
 ﻿using System;
+using SQLite;
 namespace zadanie2ubi.ObjectTypes
 {
     public class Color
     {
-        public int id;
-        public int Code;
-        public string Name;
-        public string NamePl;
+        [PrimaryKey]
+        public int Id           {get;set;}
+        public int Code         {get;set;}
+        public string Name      {get;set;}
+        public string NamePl { get; set; }
 
         public Color()
         {
@@ -14,7 +16,7 @@ namespace zadanie2ubi.ObjectTypes
 
         public Color (int _id, int _Code, string _Name, string _NamePl)
         {
-            id = _id;
+            Id = _id;
             Code = _Code;
             Name = _Name;
             NamePl = _NamePl;

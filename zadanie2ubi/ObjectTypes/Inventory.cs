@@ -1,19 +1,21 @@
 ﻿using System;
+using SQLite;
 namespace zadanie2ubi.ObjectTypes
 {
     public class Inventory
     {
-        public int id;
-        public string Name;
-        public int Active;
-        public int LastAccessed;
+        [PrimaryKey]
+        public int Id               {get;set;}
+        public string Name          {get;set;}
+        public int Active           {get;set;}
+        public int LastAccessed { get; set; }
         public Inventory()
         {
         }
 
         public Inventory(int _id, string _Name, int _Active, int _LastAccessed)
         {
-            id = _id;
+            Id = _id;
             Name = _Name;
             Active = _Active;
             LastAccessed = _LastAccessed;

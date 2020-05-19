@@ -23,11 +23,23 @@
 			android:layout_width="match_parent"
 			android:layout_height="89.5dp"
 			android:id="@+id/linearLayout2">
-			<EditText
-				android:inputType="numberDecimal"
-				android:layout_width="163.5dp"
-				android:layout_height="52.0dp"
-				android:id="@+id/editText1" />
+			<LinearLayout
+				android:orientation="vertical"
+				android:minWidth="25px"
+				android:minHeight="25px"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:id="@+id/linearLayout4">
+				<EditText
+					android:inputType="numberDecimal"
+					android:layout_width="228.0dp"
+					android:layout_height="wrap_content"
+					android:id="@+id/editText1" />
+				<EditText
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/editText2" />
+			</LinearLayout>
 			<Button
 				android:text="Dodaj nowy zestaw"
 				android:layout_width="wrap_content"
@@ -41,7 +53,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="206.5dp"
 			android:id="@+id/linearLayout3"
-			android:layout_marginBottom="175.0dp" >
+			android:layout_marginBottom="175.0dp">
 			<ListView
 				android:minWidth="25px"
 				android:minHeight="25px"

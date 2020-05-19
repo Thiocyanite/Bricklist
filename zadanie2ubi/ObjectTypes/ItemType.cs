@@ -1,12 +1,14 @@
 ﻿using System;
+using SQLite;
 namespace zadanie2ubi.ObjectTypes
 {
     public class ItemType
     {
-        public int id;
-        public string Code;
-        public string Name;
-        public string NamePl;
+        [PrimaryKey]
+        public int Id { get; set; }
+        public string Code     {get;set;}
+        public string Name     {get;set;}
+        public string NamePl   {get;set;}
 
 
         public ItemType()
@@ -15,7 +17,7 @@ namespace zadanie2ubi.ObjectTypes
 
         public ItemType(int _id, string _Code, string _Name, string _NamePl)
         {
-            id = _id;
+            Id = _id;
             Code = _Code;
             Name = _Name;
             NamePl = _NamePl;

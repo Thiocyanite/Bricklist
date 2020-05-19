@@ -23,21 +23,30 @@ namespace zadanie2ubi
             SetContentView(Resource.Layout.content_main);
 
             EditText editText1 = FindViewById<EditText>(Resource.Id.editText1);
+            EditText editText2 = FindViewById<EditText>(Resource.Id.editText2);
             Button button1 = FindViewById<Button>(Resource.Id.button1);
+            Button button2 = FindViewById<Button>(Resource.Id.button2);
             ListView listView1 = FindViewById<ListView>(Resource.Id.listView1);
             backend = Backend.Instance;
+            var setlist = backend.GetSetNames();
+            listView1.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, setlist);
+            
             button1.Click += (sender, e) =>
              {
-                 backend.AddInventory(int.Parse(editText1.Text));
+                 backend.AddInventory(int.Parse(editText1.Text),editText2.Text);
              };
-            Button button2 = FindViewById<Button>(Resource.Id.button2);
+           
             button2.Click += (sender, e) =>
               {
                   var intent = new Intent(this, typeof(SetActivity));
-                // intent.PutStringArrayListExtra("phone_numbers", _phoneNumbers);
                 StartActivity(intent);
               };
 
+            listView1.ItemClick += (sender, e) =>
+              {
+                  String selectedOne = (String)listView1.GetItemAtPosition(e.Position);
+                  backend.ChosenSet = selectedOne.Split(" ")[0];
+              };
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

@@ -1,14 +1,16 @@
 ﻿using System;
+using SQLite;
 namespace zadanie2ubi.ObjectTypes
 {
     public class Part
     {
-        public int id;
-        public int TypeID;
-        public string Code;
-        public string Name;
-        public string NamePL;
-        public int categoryID;
+        [PrimaryKey]
+        public int Id          {get;set;}
+        public int TypeID      {get;set;}
+        public string Code     {get;set;}
+        public string Name     {get;set;}
+        public string NamePL   {get;set;}
+        public int CategoryID { get; set; }
 
         public Part()
         {
@@ -16,12 +18,12 @@ namespace zadanie2ubi.ObjectTypes
 
         public Part(int _id, int _TypeID, string _Code, string _Name, string _NamePL, int _categoryID)
         {
-            id = _id;
+            Id = _id;
             TypeID = _TypeID;
             Code = _Code;
             Name = _Name;
             NamePL = _NamePL;
-            categoryID = _categoryID;
+            CategoryID = _categoryID;
         }
     }
 }
