@@ -110,9 +110,13 @@ namespace zadanie2ubi
                 WebClient client = new WebClient();
                 var source = "http://fcds.cs.put.poznan.pl/MyWeb/BL/" + id.ToString() + ".xml";
                 var destination = Environment.GetFolderPath(Environment.SpecialFolder.Personal)+id.ToString() + ".xml";
+                if (File.Exists(destination))
+                    File.Delete(destination);
                 File.Create(destination);
-                client.DownloadFile(source, id.ToString() + ".xml");
-                System.Console.WriteLine("Udalo sie");
+                client.DownloadFileAsync(new System.Uri(source), destination);
+                
+                ReadXML(id, name);
+
             }
             catch(Exception ex)
             {

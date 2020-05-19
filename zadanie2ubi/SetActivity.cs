@@ -26,20 +26,29 @@ namespace zadanie2ubi
             Button button2 = FindViewById<Button>(Resource.Id.button2);
             Button button3 = FindViewById<Button>(Resource.Id.button3);
             ListView listView1 = FindViewById<ListView>(Resource.Id.listView1);
-            ListView listView2 = FindViewById<ListView>(Resource.Id.listView2);
-            ListView listView3 = FindViewById<ListView>(Resource.Id.listView3);
             backend = Backend.Instance;
-            if (backend.ChosenSet == "None")
-            {
-                String[] list = { "Nie wybrano", "żadnego zestawu", "do wyświetlenia :(" };
-                listView1.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, list);
-            }
-            else {
+            
                 backend.GetInventoryParts(int.Parse(backend.ChosenSet));
-                listView1.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, backend.GetBricksStableInfo());
-                listView2.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleDropDownItem1Line, backend.GetBricksNums());
-                //listView.Adapter = new ArrayAdapter(this,  Android.Resource.Layout.SimpleListItem1, setlist );
-            }
+                var staticValues = backend.GetBricksStableInfo();
+                var nums = backend.GetBricksNums();
+                //listView1.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, backend.GetBricksStableInfo());
+                List<Tuple<string, string, Button, Button>> vs = new List<Tuple<string, string, Button, Button>>();
+                for (int i = 0; i < staticValues.Count; i++)
+                {
+                string sign = "+";
+                    Button plusButt = new Button(this);
+                    Button minusButt = new Button(this);
+                    
+                    plusButt.Click += (sender, e)=>{ 
+                        backend.Bricks[i].Add();
+                    };
+                    minusButt.Click += (sender, e)=>{
+                        backend.Bricks[i].Remove();
+                    };
+                    vs.Add(Tuple.Create<string, string, Button, Button>(staticValues[i], nums[i], plusButt, minusButt));
+                }
+                listView1.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, vs);
+            
 
             button2.Click += (sender, e) =>
             {
@@ -52,7 +61,9 @@ namespace zadanie2ubi
                 var intent = new Intent(this, typeof(MainActivity));
                 StartActivity(intent);
             };
-            
+
+
+
         }
     }
 }

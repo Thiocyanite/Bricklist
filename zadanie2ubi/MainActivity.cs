@@ -27,6 +27,8 @@ namespace zadanie2ubi
             Button button1 = FindViewById<Button>(Resource.Id.button1);
             Button button2 = FindViewById<Button>(Resource.Id.button2);
             ListView listView1 = FindViewById<ListView>(Resource.Id.listView1);
+            TextView textView1 = FindViewById<TextView>(Resource.Id.textView1);
+            textView1.Text = "Nie wybrano żadnego zestawu";
             backend = Backend.Instance;
             var setlist = backend.GetSetNames();
             listView1.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, setlist);
@@ -38,14 +40,23 @@ namespace zadanie2ubi
            
             button2.Click += (sender, e) =>
               {
-                  var intent = new Intent(this, typeof(SetActivity));
-                StartActivity(intent);
+                  if (backend.ChosenSet == "None")
+                  {
+                      textView1.Text = "Najpierw wybierz zestaw";
+                  }
+                  else
+                  {
+                      var intent = new Intent(this, typeof(SetActivity));
+                      StartActivity(intent);
+                  }
+                  
               };
 
             listView1.ItemClick += (sender, e) =>
               {
                   String selectedOne = (String)listView1.GetItemAtPosition(e.Position);
                   backend.ChosenSet = selectedOne.Split(" ")[0];
+                  textView1.Text="Wybrany zestaw "+(String)listView1.GetItemAtPosition(e.Position);
               };
         }
 

@@ -31,3 +31,4 @@ resources;obj/Debug/res/values/strings.xml
 resources;obj/Debug/res/values/styles.xml
 string;obj/Debug/res/values/strings.xml
 style;obj/Debug/res/values/styles.xml
+TextView;obj/Debug/res/layout/content_main.xml
