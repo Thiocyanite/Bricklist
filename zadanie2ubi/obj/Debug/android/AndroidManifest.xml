@@ -12,6 +12,7 @@
       </intent-filter>
     </activity>
     <activity android:label="SetActivity" android:name="crc642fdc9487efee4229.SetActivity" />
+    <activity android:label="ExportSettings" android:name="crc642fdc9487efee4229.ExportSettings" />
     <service android:name="crc64a98abb514ffad9f1.KeepAliveService" />
     <receiver android:enabled="true" android:exported="false" android:label="Essentials Battery Broadcast Receiver" android:name="crc64a0e0a82d0db9a07d.BatteryBroadcastReceiver" />
     <receiver android:enabled="true" android:exported="false" android:label="Essentials Energy Saver Broadcast Receiver" android:name="crc64a0e0a82d0db9a07d.EnergySaverBroadcastReceiver" />
@@ -27,5 +28,6 @@
         <category android:name="mono.android.intent.category.SEPPUKU.com.companyname.zadanie2ubi" />
       </intent-filter>
     </receiver>
+    <activity android:name="com.cloudrail.si.servicecode.commands.codeRedirect.AuthenticationActivity" />
   </application>
 </manifest>

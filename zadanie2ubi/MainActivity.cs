@@ -35,7 +35,16 @@ namespace zadanie2ubi
             
             button1.Click += (sender, e) =>
              {
-                 backend.AddInventory(int.Parse(editText1.Text),editText2.Text);
+                 try
+                 {
+                     textView1.Text = "Rozpoczęto ładowanie zestawu";
+                     backend.AddInventory(int.Parse(editText1.Text), editText2.Text);
+                     textView1.Text = "Pobrano";
+                 }
+                 catch (Exception ex)
+                 {
+                     textView1.Text = "Wystąpił błąd przy pobieraniu";
+                 }
              };
            
             button2.Click += (sender, e) =>

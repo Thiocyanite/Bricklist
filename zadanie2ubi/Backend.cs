@@ -5,7 +5,8 @@ using System.Net;
 using SQLite;
 using System.IO.Compression;
 using zadanie2ubi.ObjectTypes;
-
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace zadanie2ubi
 {
@@ -102,33 +103,39 @@ namespace zadanie2ubi
         /// To do: check why it doesn't want to download file
         /// </summary>
         /// <param name="id"> Number of set, for example 615</param> 
-        public void AddInventory(int id, string name)
+        public async void AddInventory(int id, string name)
         {
             try
             {
                 BrickSetsNames.Add(id.ToString()+" "+name);
-                WebClient client = new WebClient();
                 var source = "http://fcds.cs.put.poznan.pl/MyWeb/BL/" + id.ToString() + ".xml";
                 var destination = Environment.GetFolderPath(Environment.SpecialFolder.Personal)+id.ToString() + ".xml";
                 if (File.Exists(destination))
                     File.Delete(destination);
                 File.Create(destination);
-                client.DownloadFileAsync(new System.Uri(source), destination);
-                
+                await DownloadFile(source, destination);
                 ReadXML(id, name);
 
             }
             catch(Exception ex)
             {
                 System.Console.WriteLine(ex.Message);
+                throw ex;
             }
+        }
+
+        private async Task DownloadFile(string source, string destination)
+        {
+            WebClient client = new WebClient();
+            await client.DownloadFileTaskAsync(new System.Uri(source), destination);
+
         }
 
         /// <summary>
         /// This function writes how many bricks you shall buy to have full set
         /// </summary>
         /// <param name="id"> Number of set </param>
-        private void WriteXML(int id)
+        public void WriteXML(int id)
         {
             var table = db.Table<InventoryPart>();
             table = table.Where(i => i.InventoryID == id);

@@ -3,6 +3,15 @@ public class MonoPackageManager_Resources {
 	public static String[] Assemblies = new String[]{
 		/* We need to ensure that "zadanie2ubi.dll" comes first in this list. */
 		"zadanie2ubi.dll",
+		"cloudrail-si-xamarin-android-sdk.dll",
+		"Google.Apis.Auth.dll",
+		"Google.Apis.Auth.PlatformServices.dll",
+		"Google.Apis.Core.dll",
+		"Google.Apis.dll",
+		"Google.Apis.Drive.v1.dll",
+		"Google.Apis.Drive.v2.dll",
+		"Google.Apis.Drive.v3.dll",
+		"Newtonsoft.Json.dll",
 		"SQLite-net.dll",
 		"SQLitePCLRaw.batteries_green.dll",
 		"SQLitePCLRaw.batteries_v2.dll",

@@ -28,28 +28,31 @@ namespace zadanie2ubi
             ListView listView1 = FindViewById<ListView>(Resource.Id.listView1);
             backend = Backend.Instance;
             
-                backend.GetInventoryParts(int.Parse(backend.ChosenSet));
-                var staticValues = backend.GetBricksStableInfo();
-                var nums = backend.GetBricksNums();
-                //listView1.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, backend.GetBricksStableInfo());
-                List<Tuple<string, string, Button, Button>> vs = new List<Tuple<string, string, Button, Button>>();
-                for (int i = 0; i < staticValues.Count; i++)
-                {
-                string sign = "+";
-                    Button plusButt = new Button(this);
-                    Button minusButt = new Button(this);
-                    
-                    plusButt.Click += (sender, e)=>{ 
-                        backend.Bricks[i].Add();
-                    };
-                    minusButt.Click += (sender, e)=>{
-                        backend.Bricks[i].Remove();
-                    };
-                    vs.Add(Tuple.Create<string, string, Button, Button>(staticValues[i], nums[i], plusButt, minusButt));
-                }
-                listView1.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, vs);
-            
+            backend.GetInventoryParts(int.Parse(backend.ChosenSet));
+            var staticValues = backend.GetBricksStableInfo();
+            var nums = backend.GetBricksNums();
+            List<Tuple<string, string, Button, Button>> vs = new List<Tuple<string, string, Button, Button>>();
+            for (int i = 0; i < staticValues.Count; i++)
+            {
+            string sign = "+";
+                Button plusButt = new Button(this);
+                Button minusButt = new Button(this);
+                
+                plusButt.Click += (sender, e)=>{ 
+                    backend.Bricks[i].Add();
+                };
+                minusButt.Click += (sender, e)=>{
+                    backend.Bricks[i].Remove();
+                };
+                vs.Add(Tuple.Create<string, string, Button, Button>(staticValues[i], nums[i], plusButt, minusButt));
+            }
+            listView1.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, vs);
 
+            button1.Click += (sender, e) =>
+              {
+                  var intent = new Intent(this, typeof(ExportSettings));
+                  StartActivity(intent);
+              };
             button2.Click += (sender, e) =>
             {
                 var intent = new Intent(this, typeof(MainActivity));
@@ -58,6 +61,7 @@ namespace zadanie2ubi
             };
             button3.Click += (sender, e) =>
             {
+                backend.WriteXML(int.Parse(backend.ChosenSet));
                 var intent = new Intent(this, typeof(MainActivity));
                 StartActivity(intent);
             };

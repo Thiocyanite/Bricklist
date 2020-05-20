@@ -32,6 +32,18 @@
       "frameworks": {
         "monoandroid90": {
           "dependencies": {
+            "Google.Apis.Drive.v1": {
+              "target": "Package",
+              "version": "[1.13.1.505, )"
+            },
+            "Google.Apis.Drive.v2": {
+              "target": "Package",
+              "version": "[1.45.0.1951, )"
+            },
+            "Google.Apis.Drive.v3": {
+              "target": "Package",
+              "version": "[1.45.0.1951, )"
+            },
             "System.IO.Compression": {
               "target": "Package",
               "version": "[4.3.0, )"
@@ -59,6 +71,10 @@
             "Xamarin.Essentials": {
               "target": "Package",
               "version": "[1.5.3.1, )"
+            },
+            "Xamarin.Google.Drive.Api.Android": {
+              "target": "Package",
+              "version": "[1.2.11, )"
             },
             "sqlite-net-pcl": {
               "target": "Package",
