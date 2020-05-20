@@ -49,8 +49,9 @@ namespace zadanie2ubi
             listView1.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, vs);
 
             button1.Click += (sender, e) =>
-              {
-                  var intent = new Intent(this, typeof(ExportSettings));
+            {
+                backend.WriteXML(int.Parse(backend.ChosenSet));
+                var intent = new Intent(this, typeof(ExportSettings));
                   StartActivity(intent);
               };
             button2.Click += (sender, e) =>
@@ -61,7 +62,6 @@ namespace zadanie2ubi
             };
             button3.Click += (sender, e) =>
             {
-                backend.WriteXML(int.Parse(backend.ChosenSet));
                 var intent = new Intent(this, typeof(MainActivity));
                 StartActivity(intent);
             };

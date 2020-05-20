@@ -31,71 +31,45 @@ namespace zadanie2ubi
     public class ExportSettings : Activity
     {
         Backend backend;
-        UserCredential credential;
-        static string[] Scopes = { DriveService.Scope.DriveReadonly };
-
+        EditText path;
+        TextView text;
+        Button butt1;
+        Button butt2;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.settings);
             backend = Backend.Instance;
-            EditText password = FindViewById<EditText>(Resource.Id.editText1);
-            EditText login = FindViewById<EditText>(Resource.Id.editText2);
+            EditText path = FindViewById<EditText>(Resource.Id.editText2);
+            TextView text = FindViewById<TextView>(Resource.Id.textView2);
             Button butt1 = FindViewById<Button>(Resource.Id.button1);
             Button butt2 = FindViewById<Button>(Resource.Id.button2);
-
+            text.Text = "Status zapisu:";
             butt1.Click += (sender, e) =>
               {
-                  Export(login.Text);
+                  try
+                  {
+                      
+                      var file = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal) + "/Result.xml";
+                      if (System.IO.File.Exists(file))
+                      {
+                          System.IO.File.Copy(file, path.Text, true);
+                          text.Text = "Zapisano";
+                      }
+                      else
+                          text.Text = "Nie wygenerował się xml";
+                  }
+                  catch (Exception ex)
+                  {
+                      text.Text = "Nie udało się zapisać. Istnieje taki folder i masz prawa zapisu?";
+                  }
               };
             butt2.Click += (sender, e) =>
               {
                   var intent = new Intent(this, typeof(MainActivity));
                   StartActivity(intent);
               };
-        }
-
-        private void Export(string login)
-        {
-            var file = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-            file=file.Remove(file.Length - 5);
-            file+= "Result.xml";
-            using (var stream =
-                new FileStream(file, FileMode.Open, FileAccess.Read))
-            {
-                string credPath = "token.json";
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
-                    login,
-                    CancellationToken.None,
-                    new FileDataStore(credPath, true)).Result;
-                Console.WriteLine("Credential file saved to: " + credPath);
-            }
-            var service = new DriveService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = "Bricklist",
-            });
-            FilesResource.ListRequest listRequest = service.Files.List();
-            listRequest.PageSize = 10;
-            listRequest.Fields = "nextPageToken, files(id, name)";
-            IList<Google.Apis.Drive.v3.Data.File> files = listRequest.Execute()
-                .Files;
-            Console.WriteLine("Files:");
-            if (files != null && files.Count > 0)
-            {
-                foreach (var fil in files)
-                {
-                    Console.WriteLine("{0} ({1})", fil.Name, fil.Id);
-                }
-            }
-            else
-            {
-                Console.WriteLine("No files found.");
-            }
-            Console.Read();
         }
 
     }

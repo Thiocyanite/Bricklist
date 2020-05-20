@@ -140,11 +140,11 @@ namespace zadanie2ubi
             var table = db.Table<InventoryPart>();
             table = table.Where(i => i.InventoryID == id);
             table = table.Where(i => i.QuantityInStore < i.QuantityInSet);
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "Result.xml"))
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "/Result.xml"))
             {
-                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "Result.xml");
+                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "/Result.xml");
             }
-            using (var file = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "Result.xml"))
+            using (var file = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.Personal)+ "/Result.xml"))
             {
                 file.WriteLine("<INVENTORY>");
                 foreach(var brick in table)
