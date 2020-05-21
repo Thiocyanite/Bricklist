@@ -135,22 +135,25 @@ namespace zadanie2ubi
         /// This function writes how many bricks you shall buy to have full set
         /// </summary>
         /// <param name="id"> Number of set </param>
-        public void WriteXML(int id)
+        public string WriteXML(int id, string name)
         {
             var table = db.Table<InventoryPart>();
             table = table.Where(i => i.InventoryID == id);
             table = table.Where(i => i.QuantityInStore < i.QuantityInSet);
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "/Result.xml"))
+            var sdcardPath = Android.OS.Environment.ExternalStorageDirectory.Path;
+            var FilePath = Path.Combine(sdcardPath, name+".xml");//Φάκελος και εικόνα
+            if (File.Exists(FilePath))
+                File.Delete(FilePath);
+
+            System.Console.WriteLine(FilePath);
             {
-                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "/Result.xml");
-            }
-            using (var file = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.Personal)+ "/Result.xml"))
-            {
-                file.WriteLine("<INVENTORY>");
-                foreach(var brick in table)
+                using (StreamWriter writer = new System.IO.StreamWriter(FilePath, true))
                 {
-                    string[] lines =
+                    writer.WriteLine("<INVENTORY>");
+                    foreach (var brick in table)
                     {
+                        string[] lines =
+                        {
                         "<ITEM>",
                         "<ITEMTYPE>"+brick.ItemID.ToString()+"</ITEMTYPE>",
                         "<ITEMID>"+brick.Id.ToString()+"</ITEMID>",
@@ -158,12 +161,14 @@ namespace zadanie2ubi
                         "<QTYFILLED>"+(brick.QuantityInSet-brick.QuantityInStore).ToString()+"</QTYFILLD>",
                         "</ITEM>"
                     };
-                    foreach (var line in lines)
-                        file.WriteLine(line);
+                        foreach (var line in lines)
+                            writer.WriteLine(line);
+                    }
+                    writer.WriteLine("</INVENTORY>");
+                    writer.Close();
                 }
-                file.WriteLine("</INVENTORY>");
-                file.Close();
             }
+            return FilePath;
         }
 
         /// <summary>

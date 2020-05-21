@@ -50,7 +50,6 @@ namespace zadanie2ubi
 
             button1.Click += (sender, e) =>
             {
-                backend.WriteXML(int.Parse(backend.ChosenSet));
                 var intent = new Intent(this, typeof(ExportSettings));
                   StartActivity(intent);
               };

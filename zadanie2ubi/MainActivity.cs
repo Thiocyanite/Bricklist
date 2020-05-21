@@ -1,12 +1,15 @@
 ﻿using System;
+using Android;
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
+using Android.Support.V4.App;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using static Android.Manifest;
 
 namespace zadanie2ubi
 {
@@ -67,6 +70,11 @@ namespace zadanie2ubi
                   backend.ChosenSet = selectedOne.Split(" ")[0];
                   textView1.Text="Wybrany zestaw "+(String)listView1.GetItemAtPosition(e.Position);
               };
+            
+                ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.WriteExternalStorage }, 0);
+            
+                ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.ReadExternalStorage }, 0);
+            
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

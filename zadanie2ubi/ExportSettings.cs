@@ -23,6 +23,9 @@ using Android.Runtime;
 using Android.Util;
 using Android.Widget;
 using Google.Apis.Auth.OAuth2;
+using Android.Support.V4.Content;
+using Android;
+using Android.Support.V4.App;
 
 namespace zadanie2ubi
 {
@@ -50,15 +53,8 @@ namespace zadanie2ubi
               {
                   try
                   {
-                      
-                      var file = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal) + "/Result.xml";
-                      if (System.IO.File.Exists(file))
-                      {
-                          System.IO.File.Copy(file, path.Text, true);
-                          text.Text = "Zapisano";
-                      }
-                      else
-                          text.Text = "Nie wygenerował się xml";
+                      var where=backend.WriteXML(int.Parse(backend.ChosenSet), path.Text);
+                      text.Text = "Zapisano w "+where;
                   }
                   catch (Exception ex)
                   {
