@@ -11,6 +11,8 @@ public class SetActivity
 	static {
 		__md_methods = 
 			"n_onCreate:(Landroid/os/Bundle;)V:GetOnCreate_Landroid_os_Bundle_Handler\n" +
+			"n_onRestart:()V:GetOnRestartHandler\n" +
+			"n_onPostResume:()V:GetOnPostResumeHandler\n" +
 			"";
 		mono.android.Runtime.register ("zadanie2ubi.SetActivity, zadanie2ubi", SetActivity.class, __md_methods);
 	}
@@ -30,6 +32,22 @@ public class SetActivity
 	}
 
 	private native void n_onCreate (android.os.Bundle p0);
+
+
+	public void onRestart ()
+	{
+		n_onRestart ();
+	}
+
+	private native void n_onRestart ();
+
+
+	public void onPostResume ()
+	{
+		n_onPostResume ();
+	}
+
+	private native void n_onPostResume ();
 
 	private java.util.ArrayList refList;
 	public void monodroidAddReference (java.lang.Object obj)

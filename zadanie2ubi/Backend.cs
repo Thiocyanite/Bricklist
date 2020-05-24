@@ -15,7 +15,8 @@ namespace zadanie2ubi
         private List<String> BrickSetsNames;
         private SQLiteConnection db;
         public string ChosenSet { get; set; }
-        public List<BrickInGui> Bricks {get;set; }
+        public InventoryPart Brick { get; set; }
+        public List<InventoryPart> Bricks {get;set; }
         private static readonly Lazy<Backend>
         lazy =
         new Lazy<Backend>
@@ -29,6 +30,7 @@ namespace zadanie2ubi
             BrickSetsNames = new List<string>();
             string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal),
         "database.db3");
+            File.Delete(dbPath);
             if (File.Exists(dbPath))
             {
                 db = new SQLiteConnection(dbPath);
@@ -41,16 +43,27 @@ namespace zadanie2ubi
                 CreateExampleData();
             }
             ChosenSet = "None";
-            Bricks = new List<BrickInGui>();
+            Bricks = new List<InventoryPart>();
+        }
+
+
+        public void SetBrick(int id)
+        {
+            Brick = db.Get<InventoryPart>(id-1);
+        }
+
+        public void SaveBrick(InventoryPart part)
+        {
+            db.Update(part);
         }
 
         public void GetInventoryParts(int id)
         {
             var table = db.Table<InventoryPart>().Where(i => i.InventoryID == id);
-            List<BrickInGui> bricks = new List<BrickInGui>();
+            List<InventoryPart> bricks = new List<InventoryPart>();
             foreach(InventoryPart part in table)
             {
-                bricks.Add(new BrickInGui(part));
+                bricks.Add(part);
             }
             Bricks = bricks;
         }

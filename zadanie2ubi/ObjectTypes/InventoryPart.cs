@@ -30,5 +30,51 @@ namespace zadanie2ubi.ObjectTypes
         }
 
 
+        public String StaticValues()
+        {
+            return String.Format("{0,10}{0,10}{0,10}{0,10}",
+                TypeID,ItemID, ColorID, Extra);
+        }
+
+
+        public String BricksNum()
+        {
+            return QuantityInSet.ToString();
+        }
+
+        public String BricksInStore()
+        {
+            return QuantityInStore.ToString();
+        }
+
+
+
+        public void Add(int i = 1)
+        {
+            if (QuantityInStore < QuantityInSet)
+                QuantityInStore += i;
+        }
+
+        public void Remove(int i = 1)
+        {
+            if (QuantityInStore > 0)
+                QuantityInStore -= i;
+        }
+
+        public void Change(int i)
+        {
+            if (i < 0)
+                QuantityInStore = 0;
+            else
+            {
+                if (i >QuantityInSet)
+                    QuantityInStore = QuantityInSet;
+                else
+                    QuantityInStore = i;
+            }
+        }
+
+
     }
 }
+

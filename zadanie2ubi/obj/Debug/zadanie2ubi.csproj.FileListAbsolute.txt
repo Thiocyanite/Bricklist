@@ -311,3 +311,6 @@
 /Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/Debug/android/typemaps.x86.o
 /Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/Debug/android/typemaps.x86_64.o
 /Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/Debug/stamp/_CleanIntermediateIfNeeded.stamp
+/Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/Debug/android/src/crc642fdc9487efee4229/MyAdapter.java
+/Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/Debug/res/layout/add_layout.xml
+/Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/Debug/android/src/crc642fdc9487efee4229/ChangeActivity.java

@@ -30,24 +30,14 @@ namespace zadanie2ubi
             
             backend.GetInventoryParts(int.Parse(backend.ChosenSet));
             var staticValues = backend.GetBricksStableInfo();
-            var nums = backend.GetBricksNums();
-            List<Tuple<string, string, Button, Button>> vs = new List<Tuple<string, string, Button, Button>>();
-            for (int i = 0; i < staticValues.Count; i++)
-            {
-            string sign = "+";
-                Button plusButt = new Button(this);
-                Button minusButt = new Button(this);
-                
-                plusButt.Click += (sender, e)=>{ 
-                    backend.Bricks[i].Add();
-                };
-                minusButt.Click += (sender, e)=>{
-                    backend.Bricks[i].Remove();
-                };
-                vs.Add(Tuple.Create<string, string, Button, Button>(staticValues[i], nums[i], plusButt, minusButt));
-            }
-            listView1.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, vs);
 
+            listView1.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleDropDownItem1Line, staticValues);
+
+            listView1.ItemClick +=(sender, e)=>{
+                backend.SetBrick(e.Position);
+                var intent = new Intent(this, typeof(ChangeActivity));
+                StartActivity(intent);
+            };
             button1.Click += (sender, e) =>
             {
                 var intent = new Intent(this, typeof(ExportSettings));
@@ -65,8 +55,42 @@ namespace zadanie2ubi
                 StartActivity(intent);
             };
 
-
-
         }
+
+
+        protected override void OnRestart()
+        {
+            base.OnRestart();
+            ListView listView1 = FindViewById<ListView>(Resource.Id.listView1);
+            backend = Backend.Instance;
+
+            backend.GetInventoryParts(int.Parse(backend.ChosenSet));
+            var staticValues = backend.GetBricksStableInfo();
+            listView1.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleDropDownItem1Line, staticValues);
+
+            listView1.ItemClick += (sender, e) => {
+                backend.SetBrick(e.Position);
+                var intent = new Intent(this, typeof(ChangeActivity));
+                StartActivity(intent);
+            };
+        }
+
+        protected override void OnPostResume()
+        {
+            base.OnPostResume();
+            ListView listView1 = FindViewById<ListView>(Resource.Id.listView1);
+            backend = Backend.Instance;
+
+            backend.GetInventoryParts(int.Parse(backend.ChosenSet));
+            var staticValues = backend.GetBricksStableInfo();
+            listView1.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleDropDownItem1Line, staticValues);
+
+            listView1.ItemClick += (sender, e) => {
+                backend.SetBrick(e.Position);
+                var intent = new Intent(this, typeof(ChangeActivity));
+                StartActivity(intent);
+            };
+        }
+
     }
 }
