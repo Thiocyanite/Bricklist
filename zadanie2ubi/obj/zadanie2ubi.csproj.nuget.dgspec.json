@@ -44,6 +44,10 @@
               "target": "Package",
               "version": "[1.45.0.1951, )"
             },
+            "Microsoft.AspNetCore.Http.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "System.IO.Compression": {
               "target": "Package",
               "version": "[4.3.0, )"
@@ -55,6 +59,18 @@
             "System.IO.FileSystem": {
               "target": "Package",
               "version": "[4.3.0, )"
+            },
+            "System.Net.Http": {
+              "target": "Package",
+              "version": "[4.3.4, )"
+            },
+            "System.Net.WebHeaderCollection": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Text.Encodings.Web": {
+              "target": "Package",
+              "version": "[4.7.1, )"
             },
             "Xamarin.Android.Support.Core.Utils": {
               "target": "Package",

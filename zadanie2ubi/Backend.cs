@@ -8,6 +8,7 @@ using zadanie2ubi.ObjectTypes;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace zadanie2ubi
 {
     public class Backend
@@ -30,7 +31,6 @@ namespace zadanie2ubi
             BrickSetsNames = new List<string>();
             string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal),
         "database.db3");
-            File.Delete(dbPath);
             if (File.Exists(dbPath))
             {
                 db = new SQLiteConnection(dbPath);
@@ -71,7 +71,7 @@ namespace zadanie2ubi
         public List<string> GetBricksStableInfo()
         {
             List<string> vs = new List<string>();
-            vs.Add("Typ Id Kolor Ekstra");
+            vs.Add("Typ         Id        Kolor      Ekstra");
             foreach (var brick in Bricks)
                 vs.Add(brick.StaticValues());
             return vs;
@@ -122,11 +122,20 @@ namespace zadanie2ubi
             {
                 BrickSetsNames.Add(id.ToString()+" "+name);
                 var source = "http://fcds.cs.put.poznan.pl/MyWeb/BL/" + id.ToString() + ".xml";
-                var destination = Environment.GetFolderPath(Environment.SpecialFolder.Personal)+id.ToString() + ".xml";
+                var sdcardPath = Android.OS.Environment.ExternalStorageDirectory.Path;
+                var destination = Path.Combine(sdcardPath, name + ".xml");
                 if (File.Exists(destination))
                     File.Delete(destination);
                 File.Create(destination);
-                await DownloadFile(source, destination);
+                System.Web.HttpResponse response = System.Web.HttpContext.Current.Response;
+                response.ClearContent();
+                response.Clear();
+                response.ContentType = "text/plain";
+                response.AddHeader("Content-Disposition",
+                                   "attachment; filename=" + fileName + ";");
+                response.TransmitFile(Server.MapPath("FileDownload.csv"));
+                response.Flush();
+                response.End();
                 ReadXML(id, name);
 
             }
@@ -192,7 +201,10 @@ namespace zadanie2ubi
         private void ReadXML(int id, string name)
         {
             string line;
-            var file= new StreamReader(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + id.ToString() + ".xml");
+            var sdcardPath = Android.OS.Environment.ExternalStorageDirectory.Path;
+            var FilePath = Path.Combine(sdcardPath, name + ".xml");//Φάκελος και εικόνα
+
+            var file = new StreamReader(FilePath);
             InventoryPart part = new InventoryPart();
             db.Insert(new Inventory(id, name, 1, 0));
             while ((line = file.ReadLine()) != null)
