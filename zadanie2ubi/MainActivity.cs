@@ -42,6 +42,9 @@ namespace zadanie2ubi
                  {
                      textView1.Text = "Rozpoczęto ładowanie zestawu";
                      backend.AddInventory(int.Parse(editText1.Text), editText2.Text);
+                     var setlist = backend.GetSetNames();
+                     listView1.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, setlist);
+
                      textView1.Text = "Pobrano";
                  }
                  catch (Exception ex)

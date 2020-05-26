@@ -7,7 +7,7 @@ using System.IO.Compression;
 using zadanie2ubi.ObjectTypes;
 using System.Threading;
 using System.Threading.Tasks;
-
+using System.Net.Http;
 
 namespace zadanie2ubi
 {
@@ -122,22 +122,13 @@ namespace zadanie2ubi
             {
                 BrickSetsNames.Add(id.ToString()+" "+name);
                 var source = "http://fcds.cs.put.poznan.pl/MyWeb/BL/" + id.ToString() + ".xml";
-                var sdcardPath = Android.OS.Environment.ExternalStorageDirectory.Path;
-                var destination = Path.Combine(sdcardPath, name + ".xml");
-                if (File.Exists(destination))
-                    File.Delete(destination);
-                File.Create(destination);
-                System.Web.HttpResponse response = System.Web.HttpContext.Current.Response;
-                response.ClearContent();
-                response.Clear();
-                response.ContentType = "text/plain";
-                response.AddHeader("Content-Disposition",
-                                   "attachment; filename=" + fileName + ";");
-                response.TransmitFile(Server.MapPath("FileDownload.csv"));
-                response.Flush();
-                response.End();
+                var folder = Android.OS.Environment.ExternalStorageDirectory;
+                var download = new Downloader();
+                var path = folder + "/" + id + ".xml";
+                if (File.Exists(path))
+                    File.Delete(path);
+                download.DownloadFile(source, path);
                 ReadXML(id, name);
-
             }
             catch(Exception ex)
             {
@@ -146,12 +137,7 @@ namespace zadanie2ubi
             }
         }
 
-        private async Task DownloadFile(string source, string destination)
-        {
-            WebClient client = new WebClient();
-            await client.DownloadFileTaskAsync(new System.Uri(source), destination);
 
-        }
 
         /// <summary>
         /// This function writes how many bricks you shall buy to have full set
@@ -162,8 +148,8 @@ namespace zadanie2ubi
             var table = db.Table<InventoryPart>();
             table = table.Where(i => i.InventoryID == id);
             table = table.Where(i => i.QuantityInStore < i.QuantityInSet);
-            var sdcardPath = Android.OS.Environment.ExternalStorageDirectory.Path;
-            var FilePath = Path.Combine(sdcardPath, name+".xml");//Φάκελος και εικόνα
+            var sdcardPath = Android.OS.Environment.ExternalStorageDirectory;
+            var FilePath =sdcardPath+"/"+ name+".xml"; //Φάκελος και εικόνα
             if (File.Exists(FilePath))
                 File.Delete(FilePath);
 
@@ -201,8 +187,8 @@ namespace zadanie2ubi
         private void ReadXML(int id, string name)
         {
             string line;
-            var sdcardPath = Android.OS.Environment.ExternalStorageDirectory.Path;
-            var FilePath = Path.Combine(sdcardPath, name + ".xml");//Φάκελος και εικόνα
+            var sdcardPath = Android.OS.Environment.DirectoryDownloads;
+            var FilePath = Path.Combine(sdcardPath, id + ".xml");//Φάκελος και εικόνα
 
             var file = new StreamReader(FilePath);
             InventoryPart part = new InventoryPart();
