@@ -5,6 +5,7 @@ android.support.design.widget.CoordinatorLayout;obj/Debug/res/layout/activity_ma
 background;obj/Debug/res/mipmap-anydpi-v26/ic_launcher.xml
 background;obj/Debug/res/mipmap-anydpi-v26/ic_launcher_round.xml
 Button;obj/Debug/res/layout/add_layout.xml
+Button;obj/Debug/res/layout/add_set_layout.xml
 Button;obj/Debug/res/layout/content_main.xml
 Button;obj/Debug/res/layout/set_layout.xml
 Button;obj/Debug/res/layout/settings.xml
@@ -13,6 +14,7 @@ color;obj/Debug/res/values/colors.xml
 color;obj/Debug/res/values/ic_launcher_background.xml
 dimen;obj/Debug/res/values/dimens.xml
 EditText;obj/Debug/res/layout/add_layout.xml
+EditText;obj/Debug/res/layout/add_set_layout.xml
 EditText;obj/Debug/res/layout/content_main.xml
 EditText;obj/Debug/res/layout/settings.xml
 external-cache-path;/Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/Debug/lp/41/jl/res/xml/xamarin_essentials_fileprovider_file_paths.xml
@@ -22,6 +24,7 @@ foreground;obj/Debug/res/mipmap-anydpi-v26/ic_launcher_round.xml
 item;obj/Debug/res/menu/menu_main.xml
 item;obj/Debug/res/values/styles.xml
 LinearLayout;obj/Debug/res/layout/add_layout.xml
+LinearLayout;obj/Debug/res/layout/add_set_layout.xml
 LinearLayout;obj/Debug/res/layout/content_main.xml
 LinearLayout;obj/Debug/res/layout/set_layout.xml
 LinearLayout;obj/Debug/res/layout/settings.xml

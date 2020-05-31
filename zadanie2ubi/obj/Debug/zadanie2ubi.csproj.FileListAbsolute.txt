@@ -319,3 +319,5 @@
 /Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/Debug/android/assets/System.Memory.dll
 /Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/Debug/android/assets/System.Runtime.CompilerServices.Unsafe.dll
 /Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/Debug/android/assets/System.Text.Encodings.Web.dll
+/Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/Debug/res/layout/add_set_layout.xml
+/Users/admin/Documents/studia/ubi/zadanie2ubi/zadanie2ubi/obj/Debug/android/src/crc642fdc9487efee4229/AddActivity.java

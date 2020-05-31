@@ -32,8 +32,8 @@ namespace zadanie2ubi.ObjectTypes
 
         public String StaticValues()
         {
-            return String.Format("{0,10}{0,10}{0,10}{0,10}",
-                TypeID,ItemID, ColorID, Extra);
+            return String.Format("{0,6}*{0,10}*{0,10}*{0,10}*{0,10}",
+                Id, TypeID,ItemID, ColorID, Extra);
         }
 
 

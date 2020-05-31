@@ -30,21 +30,20 @@ namespace zadanie2ubi
         private Backend()
         {
             BrickSetsNames = new List<string>();
-            string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal),
-        "database.db3");
-            if (File.Exists(dbPath))
+            ChosenSet = "None";
+            Bricks = new List<InventoryPart>();
+            var file = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal),
+      "database.db");
+            if (File.Exists(file))
             {
-                db = new SQLiteConnection(dbPath);
-                
+                db = new SQLiteConnection(file);
             }
             else
             {
-                db = new SQLiteConnection(dbPath);
+                db = new SQLiteConnection(file);
                 CreateDB();
-                CreateExampleData();
             }
-            ChosenSet = "None";
-            Bricks = new List<InventoryPart>();
+            
         }
 
 
@@ -55,7 +54,15 @@ namespace zadanie2ubi
 
         public void SaveBrick(InventoryPart part)
         {
-            db.Update(part);
+            try
+            {
+                db.Update(part);
+            }
+            catch (Exception ex)
+            {
+                db.Delete(part);
+                db.Insert(part); //Sometimes it has problem with update
+            }
         }
 
         public void GetInventoryParts(int id)
@@ -72,7 +79,7 @@ namespace zadanie2ubi
         public List<string> GetBricksStableInfo()
         {
             List<string> vs = new List<string>();
-            vs.Add("Typ         Id        Kolor      Ekstra");
+            vs.Add("Id   Typ         Id        Kolor      Ekstra");
             foreach (var brick in Bricks)
                 vs.Add(brick.StaticValues());
             return vs;
@@ -123,13 +130,13 @@ namespace zadanie2ubi
             {
                 BrickSetsNames.Add(id.ToString()+" "+name);
                 var source = "http://fcds.cs.put.poznan.pl/MyWeb/BL/" + id.ToString() + ".xml";
-                
-                var folder = Android.OS.Environment.ExternalStorageDirectory;
-                var download = new Downloader();
-                var path = folder + "/" + id + ".xml";
+
+                var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal),id + ".xml");
                 if (File.Exists(path))
                     File.Delete(path);
-                await download.DownloadFile(source, path);
+                
+                var client = new WebClient();
+                client.DownloadFile(source, path);
                 ReadXML(id, name);
             }
             catch(Exception ex)
@@ -190,23 +197,31 @@ namespace zadanie2ubi
         private void ReadXML(int id, string name)
         {
             string line;
-            var sdcardPath = Android.OS.Environment.ExternalStorageDirectory;
-            var FilePath = sdcardPath+"/"+id+".xml";//Φάκελος και εικόνα
-
-            var file = new StreamReader(FilePath);
+            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal),id + ".xml");
+            var file = new StreamReader(path);
             InventoryPart part = new InventoryPart();
             db.Insert(new Inventory(id, name, 1, 0));
+            int i = id;
             while ((line = file.ReadLine()) != null)
             {
                 var mylist = line.Split(">");
+                line = line.Trim();
                 switch (mylist[0])
                 {
                     case "<ITEM":
                         part = new InventoryPart();
+                        part.Id = i++;
                         break;
                     case "<ITEMTYPE":
                         var type = mylist[1].Split("<")[0];
-                        part.TypeID = int.Parse(type);
+                        try
+                        {
+                            part.TypeID = int.Parse(type);
+                        }
+                        catch (Exception ex)
+                        {
+                            part.TypeID = 0;
+                        }
                         break;
                     case "<QTY":
                         var quantity = mylist[1].Split("<")[0];
@@ -214,7 +229,14 @@ namespace zadanie2ubi
                         break;
                     case "<ITEMID":
                         var itemid = mylist[1].Split("<")[0];
-                        part.ItemID = int.Parse(itemid);
+                        try
+                        {
+                            part.ItemID = int.Parse(itemid);
+                        }
+                        catch (Exception ex)
+                        {
+                            part.ItemID = 0;
+                        }
                         break;
                     case "<COLOR":
                         var color = mylist[1].Split("<")[0];
@@ -313,9 +335,13 @@ namespace zadanie2ubi
         /// <param name="_QuantityInSet"> How many bricks of this type are in set </param>
         /// <param name="_ColorID"> Id of color </param>
         /// <param name="_Extra"> Extra(?) </param>
-        public void CreatInventoryPart(int _id, int _InventoryID, int _TypeID, int _ItemID, int _QuantityInSet, int _ColorID, int _Extra)
+        public void CreatInventoryPart(int _InventoryID, int _TypeID, int _ItemID, int _QuantityInSet, int _ColorID, int _Extra)
         {
-            var part = new InventoryPart(_id, _InventoryID, _TypeID, _ItemID, _QuantityInSet, _ColorID, _Extra);
+            var tab = db.Table<InventoryPart>();
+            var id = 0;
+            foreach (var item in tab)
+                id++;
+            var part = new InventoryPart(id, _InventoryID, _TypeID, _ItemID, _QuantityInSet, _ColorID, _Extra);
             db.Insert(part);
         }
 
@@ -360,6 +386,9 @@ namespace zadanie2ubi
             db.CreateTable<InventoryPart>();
             db.CreateTable<ItemType>();
             db.CreateTable<Part>();
+
+            db.Insert(new Color(2, 41, "Aqua", "Aqua"));
+            db.Insert(new Color(3, 11, "Black", "Czarny"));
         }
 
     }

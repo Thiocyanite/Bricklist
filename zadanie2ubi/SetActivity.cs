@@ -34,7 +34,9 @@ namespace zadanie2ubi
             listView1.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleDropDownItem1Line, staticValues);
 
             listView1.ItemClick +=(sender, e)=>{
-                backend.SetBrick(e.Position);
+                var line = staticValues[e.Position].Split("*");
+                line[0] = line[0].Trim();
+                backend.SetBrick(int.Parse(line[0]));
                 var intent = new Intent(this, typeof(ChangeActivity));
                 StartActivity(intent);
             };

@@ -25,8 +25,7 @@ namespace zadanie2ubi
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.content_main);
 
-            EditText editText1 = FindViewById<EditText>(Resource.Id.editText1);
-            EditText editText2 = FindViewById<EditText>(Resource.Id.editText2);
+
             Button button1 = FindViewById<Button>(Resource.Id.button1);
             Button button2 = FindViewById<Button>(Resource.Id.button2);
             ListView listView1 = FindViewById<ListView>(Resource.Id.listView1);
@@ -38,19 +37,8 @@ namespace zadanie2ubi
             
             button1.Click += (sender, e) =>
              {
-                 try
-                 {
-                     textView1.Text = "Rozpoczęto ładowanie zestawu";
-                     backend.AddInventory(int.Parse(editText1.Text), editText2.Text);
-                     var setlist = backend.GetSetNames();
-                     listView1.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, setlist);
-
-                     textView1.Text = "Pobrano";
-                 }
-                 catch (Exception ex)
-                 {
-                     textView1.Text = "Wystąpił błąd przy pobieraniu";
-                 }
+                 var intent = new Intent(this, typeof(AddActivity));
+                 StartActivity(intent);
              };
            
             button2.Click += (sender, e) =>

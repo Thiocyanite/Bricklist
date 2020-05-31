@@ -1,0 +1,31 @@
+﻿<Properties StartupConfiguration="{3712050C-40D9-4476-959C-2C03F41F8F50}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Backend.cs">
+    <Files>
+      <File FileName="Backend.cs" Line="45" Column="37" />
+      <File FileName="MainActivity.cs" Line="45" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="zadanie2ubi" expanded="True">
+            <Node name="zadanie2ubi" expanded="True">
+              <Node name="Backend.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State>
+          <Value>brick.InventoryID==id</Value>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.zadanie2ubi PreferredExecutionTarget="Android.nexus_6p_pie_9_0_-_api_28" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
